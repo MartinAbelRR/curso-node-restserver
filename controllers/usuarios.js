@@ -82,14 +82,21 @@ const usuariosPut = async (req = request, res = response) => {
 
 const usuariosDelete = async (req, res = response) => {
     const {id} = req.params;
+    const uid = req.uid;
 
     // Borrador físico.
     // const usuario = await Usuario.findByIdAndDelete(id);
 
     // Borrador lógico.
     const usuario = await Usuario.findByIdAndUpdate(id, {estado: false}); // Esto es para guardar en la base de datos.
+
+    // Obtener al usuario autenticado.
+    const usuarioAutenticado = await Usuario.findById(uid);
+
+    // Imprimir el usuario (borrado) y autenticado.
     res.json({
-        usuario
+        usuario, 
+        usuarioAutenticado
     });
 }
 

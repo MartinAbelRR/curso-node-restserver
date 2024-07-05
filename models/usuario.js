@@ -34,7 +34,8 @@ const UsuarioSchema = Schema({
 
 // Esta función quita los campos _v y password y el resto los almacenará en un objeto llamado usuario.
 UsuarioSchema.methods.toJSON = function() {
-    const { __v, password, ...usuario } = this.toObject();
+    const { __v, password, _id, ...usuario } = this.toObject();
+    usuario.uid = _id;
     return usuario;
 }
 
